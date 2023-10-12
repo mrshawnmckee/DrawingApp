@@ -1,7 +1,13 @@
 const canvas = document.getElementById("canvas");
+const decreaseBtn = document.getElementById("decrease");
+const increaseBtn = document.getElementById("increase");
+const sizeEl = document.getElementById("size");
+const colorEl = document.getElementById("color");
+const clearEl = document.getElementById("clear");
+
 const ctx = canvas.getContext('2d');
 
-let size = 20;
+let size = 10;
 let isPressed = false
 let color = 'black'
 let x
@@ -54,3 +60,34 @@ function drawLine(x1, y1, x2, y2){
     ctx.stroke()                    //This call the function to draw the line
 }
 
+function updateSizeInBox() {
+    sizeEl.innerText = size
+}
+
+
+// add the toolbox element funstionality
+
+increaseBtn.addEventListener('click', (e) => {
+    size += 5
+    
+    if(size > 50){
+        size = 50;
+    }
+
+    updateSizeInBox()
+})
+
+decreaseBtn.addEventListener('click', (e) => {
+    size -= 5
+
+    if(size < 5){
+        size = 5
+    }
+
+    updateSizeInBox()
+})
+
+colorEl.addEventListener('change', (e) => color = e.target.value)
+
+// Clear the whole canvas
+clearEl.addEventListener('click', () => ctx.clearRect(0, 0, canvas.width, canvas.height))
